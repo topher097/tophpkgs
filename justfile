@@ -12,5 +12,8 @@ lockfile-pin:
     git commit -m "pin: update flake.lock"
     git push
 
+set-remote:
+    git remote set-url origin git@github.com:topher097/tophpkgs.git
+
 gadd:
     git add .
