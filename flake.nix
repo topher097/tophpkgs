@@ -1,0 +1,33 @@
+{
+  description = "Tophpkgs is my personal Nix packages and NixOS modules";
+
+  inputs = {
+    tophvim.url = "github:topher097/tophvim";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = {
+    self,
+    tophvim,
+    nixpkgs,
+    flake-utils,
+    ...
+    }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+            inherit system;
+        };
+      in {
+        packages = {
+            tophvim = tophvim.packages.${system}.default;
+        };
+        nixosModules = { };
+      }
+    ) // {
+        templates = {
+            default = { };
+        };
+    };
+}
